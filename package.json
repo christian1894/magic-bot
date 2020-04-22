@@ -5,11 +5,14 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon --inspect ./bin/www",
-    "tunnel": "ngrok http 8080"
+    "tunnel": "ngrok http 8080",
+    "lint": "standard"
   },
   "dependencies": {
+    "actions-on-google": "^2.12.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dialogflow-fulfillment": "^0.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
@@ -17,6 +20,7 @@
   },
   "devDependencies": {
     "ngrok": "^3.2.7",
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.3",
+    "standard": "^14.3.3"
   }
 }
