@@ -13,10 +13,10 @@ router.post('/', express.json(), (req, res) => {
     console.log(utils.getCardType(query))
     const result = utils.getCardType(query)
     const context = {
-      name: 'typeOfCard',
+      name: 'selectedCard',
       lifespan: 4,
       parameters: {
-        type: result.context
+        typeOfCard: result.context
       }
     }
     agent.context.set(context)
@@ -25,13 +25,24 @@ router.post('/', express.json(), (req, res) => {
 
   function secondDigit (agent) {
     console.log(agent)
-
+    const params = agent.parameters
+    const query = agent.query
+    const secondDigit = utils.getSecondDigit(query, params)
+    console.log(params, query, secondDigit)
+    const secondDigitContext = {
+      name: 'selectedCard',
+      lifespan: 4,
+      parameters: {
+        secondDigit: secondDigit
+      }
+    }
+    agent.context.set(secondDigitContext)
+    return agent.add('¡Claro que si, ¿Cómo quieres que te la diga?')
   }
 
   const intentMap = new Map()
   intentMap.set('Default Welcome Intent', welcomeIntent)
   intentMap.set('Default Welcome Intent-secondDigit', secondDigit)
-  
   agent.handleRequest(intentMap)
 })
 
