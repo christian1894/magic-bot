@@ -12,6 +12,7 @@ router.post('/', express.json(), (req, res) => {
     console.log(query.search('robot'))
     console.log(utils.getCardType(query))
     const result = utils.getCardType(query)
+    console.log(result)
     const context = {
       name: 'selectedCard',
       lifespan: 4,

@@ -42,8 +42,10 @@ const getSecondDigit = (query, params) => {
 function getStackValue (contexts, firstDigit) {
   console.log(contexts)
   const selectedCardContext = contexts.find((context) => context.name === 'selectedcard')
-  console.log(selectedCardContext)
-  return Number(selectedCardContext.parameters.typeOfCard === '2-digit' ? String(firstDigit) : '' + String(selectedCardContext.parameters.secondDigit))
+  console.log(selectedCardContext.parameters.typeOfCard)
+  firstDigit = selectedCardContext.parameters.typeOfCard === '2-digit' ? String(firstDigit) : ''
+  console.log(firstDigit)
+  return Number(firstDigit + String(selectedCardContext.parameters.secondDigit))
 }
 
 function getCard (stackValue) {
