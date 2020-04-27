@@ -8,7 +8,8 @@
     "start": "node ./bin/www",
     "dev": "nodemon --inspect ./bin/www",
     "tunnel": "ngrok http 8080",
-    "lint": "standard"
+    "lint": "standard",
+    "deploy-firebase": "firebase deploy --only functions"
   },
   "dependencies": {
     "actions-on-google": "^2.12.0",
