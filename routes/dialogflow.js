@@ -61,7 +61,11 @@ router.post('/', express.json(), (req, res) => {
     console.log(stackValue)
     const selectedCard = utils.getCard(stackValue)
     console.log(selectedCard)
-    return agent.add(`Es ${selectedCard}, ¡gracias por participar!`)
+    if (selectedCard === undefined) {
+      return agent.add('No quiero, por favor intenta nuevamente')
+    } else {
+      return agent.add(`Es ${selectedCard}, ¡gracias por participar!`)
+    }
   }
 
   const intentMap = new Map()
