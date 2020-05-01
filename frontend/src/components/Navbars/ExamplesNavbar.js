@@ -15,79 +15,79 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
 // reactstrap components
 import {
-  Button,
   Collapse,
-  NavbarBrand,
   Navbar,
-  NavItem,
-  NavLink,
-  Nav,
   Container,
   Row,
-  Col,
-  UncontrolledTooltip
-} from "reactstrap";
+  Col
+} from 'reactstrap'
 
 class PagesNavbar extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       collapseOpen: false,
-      color: "navbar-transparent"
-    };
+      color: 'navbar-transparent'
+    }
   }
-  componentDidMount() {
-    window.addEventListener("scroll", this.changeColor);
+
+  componentDidMount () {
+    window.addEventListener('scroll', this.changeColor)
   }
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.changeColor);
+
+  componentWillUnmount () {
+    window.removeEventListener('scroll', this.changeColor)
   }
-  changeColor = () => {
+
+  changeColor () {
     if (
       document.documentElement.scrollTop > 99 ||
       document.body.scrollTop > 99
     ) {
       this.setState({
-        color: "bg-info"
-      });
+        color: 'bg-info'
+      })
     } else if (
       document.documentElement.scrollTop < 100 ||
       document.body.scrollTop < 100
     ) {
       this.setState({
-        color: "navbar-transparent"
-      });
+        color: 'navbar-transparent'
+      })
     }
   };
-  toggleCollapse = () => {
-    document.documentElement.classList.toggle("nav-open");
+
+  handleToggleCollapse () {
+    document.documentElement.classList.toggle('nav-open')
     this.setState({
       collapseOpen: !this.state.collapseOpen
-    });
+    })
   };
-  onCollapseExiting = () => {
+
+  handleOnCollapseExiting () {
     this.setState({
-      collapseOut: "collapsing-out"
-    });
+      collapseOut: 'collapsing-out'
+    })
   };
-  onCollapseExited = () => {
+
+  handleOnCollapseExited () {
     this.setState({
-      collapseOut: ""
-    });
+      collapseOut: ''
+    })
   };
-  render() {
+
+  render () {
     return (
       <Navbar
-        className={"fixed-top " + this.state.color}
-        color-on-scroll="100"
-        expand="lg"
+        className={'fixed-top ' + this.state.color}
+        color-on-scroll='100'
+        expand='lg'
       >
         <Container>
-          <div className="navbar-translate">
+          <div className='navbar-translate'>
             {/* <NavbarBrand
               to="/"
               id="navbar-brand"
@@ -107,26 +107,26 @@ class PagesNavbar extends React.Component {
             </button> */}
           </div>
           <Collapse
-            className={"justify-content-end " + this.state.collapseOut}
+            className={'justify-content-end ' + this.state.collapseOut}
             navbar
             isOpen={this.state.collapseOpen}
-            onExiting={this.onCollapseExiting}
-            onExited={this.onCollapseExited}
+            onExiting={this.handleOnCollapseExiting}
+            onExited={this.handleOnCollapseExited}
           >
-            <div className="navbar-collapse-header">
+            <div className='navbar-collapse-header'>
               <Row>
-                <Col className="collapse-brand" xs="6">
-                  <a href="#pablo" onClick={e => e.preventDefault()}>
-                  <span>Card•Magic</span> Bot
+                <Col className='collapse-brand' xs='6'>
+                  <a href='#pablo' onClick={e => e.preventDefault()}>
+                    <span>Card•Magic</span> Bot
                   </a>
                 </Col>
-                <Col className="collapse-close text-right" xs="6">
+                <Col className='collapse-close text-right' xs='6'>
                   <button
                     aria-expanded={this.state.collapseOpen}
-                    className="navbar-toggler"
-                    onClick={this.toggleCollapse}
+                    className='navbar-toggler'
+                    onClick={this.handleToggleCollapse}
                   >
-                    <i className="tim-icons icon-simple-remove" />
+                    <i className='tim-icons icon-simple-remove' />
                   </button>
                 </Col>
               </Row>
@@ -134,8 +134,8 @@ class PagesNavbar extends React.Component {
           </Collapse>
         </Container>
       </Navbar>
-    );
+    )
   }
 }
 
-export default PagesNavbar;
+export default PagesNavbar

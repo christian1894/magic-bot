@@ -1,10 +1,10 @@
 import axios from 'axios'
 
 const health = () => {
-  console.log(process.env.REACT_APP_DIALOGFLOW_DEVELOPMENT_SERVER_URL)
+  console.log(process.env.REACT_APP_DIALOGFLOW_PRODUCTION_SERVER_URL)
   axios({
     method: 'get',
-    url: `${process.env.REACT_APP_DIALOGFLOW_DEVELOPMENT_SERVER_URL}/health`
+    url: `${process.env.REACT_APP_DIALOGFLOW_PRODUCTION_SERVER_URL}/health`
   })
     .then(function (response) {
       console.log(response.data)
