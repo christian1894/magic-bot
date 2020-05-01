@@ -20,15 +20,19 @@ import Iframe from 'react-iframe'
 // reactstrap components
 import { Row, Col } from 'reactstrap'
 // core components
-import ExamplesNavbar from 'components/Navbars/ExamplesNavbar.js'
+// import ExamplesNavbar from 'components/Navbars/ExamplesNavbar.js'
 import Footer from 'components/Footer/Footer.js'
+import * as service from './MainComponentService.js'
 
 class MainComponent extends React.Component {
   componentDidMount () {
+    console.log('componentDIdMount')
+    service.health()
     document.body.classList.toggle('landing-page')
   }
 
   componentWillUnmount () {
+    console.log('willumnount')
     document.body.classList.toggle('landing-page')
   }
 
@@ -47,6 +51,10 @@ class MainComponent extends React.Component {
                   id='myId'
                   className='myClassname'
                 />
+                <button
+                  onClick={() => service.health()}
+                >CLINK
+                </button>
               </Col>
             </Row>
           </div>
