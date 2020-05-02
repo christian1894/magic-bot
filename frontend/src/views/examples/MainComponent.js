@@ -18,16 +18,37 @@
 import React from 'react'
 import Iframe from 'react-iframe'
 // reactstrap components
-import { Row, Col } from 'reactstrap'
+import { Row, Col, Modal, Button } from 'reactstrap'
 // core components
 // import ExamplesNavbar from 'components/Navbars/ExamplesNavbar.js'
 import Footer from 'components/Footer/Footer.js'
 import * as service from './MainComponentService.js'
+import Lottie from './LottieComponent'
 
 class MainComponent extends React.Component {
-  componentDidMount () {
+  constructor (props) {
+    super(props)
+    this.state = { 
+      healthLoading: 
+      true,
+      miniModal: false 
+    }
+  }
+
+  async componentDidMount () {
     console.log('componentDIdMount')
-    service.health()
+    try {
+      const health = await service.health()
+      this.setState({
+      healthLoading: !health
+    })
+    } catch(error) {
+      console.log(error)
+      this.setState({
+        miniModal: true
+      })
+    }
+    
     document.body.classList.toggle('landing-page')
   }
 
@@ -35,7 +56,11 @@ class MainComponent extends React.Component {
     console.log('willumnount')
     document.body.classList.toggle('landing-page')
   }
-
+  toggleModal = modalState => {
+    this.setState({
+      [modalState]: !this.state[modalState]
+    });
+  };
   render () {
     return (
       <>
@@ -51,14 +76,45 @@ class MainComponent extends React.Component {
                   id='myId'
                   className='myClassname'
                 />
-                <button
-                  onClick={() => service.health()}
-                >CLINK
-                </button>
               </Col>
             </Row>
           </div>
-          <Footer />
+          {/* <Footer /> */}
+          {
+            this.state.healthLoading && <Lottie />
+          }
+          {/* Start Mini Modal */}
+          <Modal
+              modalClassName="modal-mini modal-danger modal-mini"
+              isOpen={this.state.miniModal}
+              toggle={() => this.toggleModal("miniModal")}
+            >
+              <div className="modal-header justify-content-center">
+                <button
+                  className="close"
+                  onClick={() => this.toggleModal("miniModal")}
+                >
+                  <i className="tim-icons icon-simple-remove text-white" />
+                </button>
+                <div className="modal-profile-danger">
+                  <i className="tim-icons icon-alert-circle-exc" />
+                </div>
+              </div>
+              <div className="modal-body">
+                <p>Something has failed :( please check the server status and try again</p>
+              </div>
+              <div className="modal-footer">
+                <Button
+                  className="btn-neutral"
+                  color="link"
+                  onClick={() => this.toggleModal("miniModal")}
+                  type="button"
+                >
+                  Close
+                </Button>
+              </div>
+            </Modal>
+            {/* End Mini Modal */}
         </div>
       </>
     )
