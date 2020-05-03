@@ -16,51 +16,52 @@
 
 */
 import React from 'react'
-import Iframe from 'react-iframe'
 // reactstrap components
-import { Row, Col, Modal, Button } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 // core components
 // import ExamplesNavbar from 'components/Navbars/ExamplesNavbar.js'
-import Footer from 'components/Footer/Footer.js'
 import * as service from './MainComponentService.js'
-import Lottie from './LottieComponent'
+import LottieComponent from './LottieComponent'
+import IFrameComponent from './IFrameComponent'
+import ModalComponent from './ModalComponent'
 
 class MainComponent extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { 
-      healthLoading: 
-      true,
-      miniModal: false 
+    this.toggleModal = this.toggleModal.bind(this)
+    this.state = {
+      healthLoading:
+        true,
+      miniModal: false
     }
   }
 
   async componentDidMount () {
-    console.log('componentDIdMount')
     try {
       const health = await service.health()
       this.setState({
-      healthLoading: !health
-    })
-    } catch(error) {
+        healthLoading: !health
+      })
+    } catch (error) {
       console.log(error)
       this.setState({
         miniModal: true
       })
     }
-    
+
     document.body.classList.toggle('landing-page')
   }
 
   componentWillUnmount () {
-    console.log('willumnount')
     document.body.classList.toggle('landing-page')
   }
-  toggleModal = modalState => {
+
+  toggleModal (modalState) {
     this.setState({
       [modalState]: !this.state[modalState]
-    });
+    })
   };
+
   render () {
     return (
       <>
@@ -69,52 +70,20 @@ class MainComponent extends React.Component {
           <div className='content-center'>
             <Row className='row-grid justify-content-between align-items-center text-left'>
               <Col className='d-flex justify-content-center' md='12'>
-                <Iframe
-                  url='https://console.dialogflow.com/api-client/demo/embedded/magic'
-                  width='100%'
-                  height='430px'
-                  id='myId'
-                  className='myClassname'
-                />
+                <IFrameComponent />
               </Col>
             </Row>
           </div>
           {/* <Footer /> */}
           {
-            this.state.healthLoading && <Lottie />
+            this.state.healthLoading && <LottieComponent />
           }
           {/* Start Mini Modal */}
-          <Modal
-              modalClassName="modal-mini modal-danger modal-mini"
-              isOpen={this.state.miniModal}
-              toggle={() => this.toggleModal("miniModal")}
-            >
-              <div className="modal-header justify-content-center">
-                <button
-                  className="close"
-                  onClick={() => this.toggleModal("miniModal")}
-                >
-                  <i className="tim-icons icon-simple-remove text-white" />
-                </button>
-                <div className="modal-profile-danger">
-                  <i className="tim-icons icon-alert-circle-exc" />
-                </div>
-              </div>
-              <div className="modal-body">
-                <p>Something has failed :( please check the server status and try again</p>
-              </div>
-              <div className="modal-footer">
-                <Button
-                  className="btn-neutral"
-                  color="link"
-                  onClick={() => this.toggleModal("miniModal")}
-                  type="button"
-                >
-                  Close
-                </Button>
-              </div>
-            </Modal>
-            {/* End Mini Modal */}
+          <ModalComponent
+            toggleModal={this.toggleModal}
+            miniModal={this.state.miniModal}
+          />
+          {/* End Mini Modal */}
         </div>
       </>
     )

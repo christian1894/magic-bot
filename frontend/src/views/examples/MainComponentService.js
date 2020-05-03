@@ -7,15 +7,15 @@ const health = () => {
       url: `${process.env.REACT_APP_DIALOGFLOW_PRODUCTION_SERVER_URL}/health`
     })
       .then(function (response) {
-        console.log(response.data)
+        /* console.log(response.data)
         console.log(response.status)
         console.log(response.statusText)
         console.log(response.headers)
-        console.log(response.config)
+        console.log(response.config) */
         resolve(true)
       })
       .catch(function (error) {
-        if (error.response) {
+        /* if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
           console.log(error.response.data)
@@ -29,8 +29,7 @@ const health = () => {
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log('Error', error.message)
-        }
-        console.log(error)
+        } */
         reject(error)
       })
   })
